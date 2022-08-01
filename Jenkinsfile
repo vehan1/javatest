@@ -24,10 +24,12 @@ pipeline {
 
     stage('Input') {
             steps {
+              script {
                 if (env.BRANCH_NAME == 'feature/test') {
                 input('Do you want to proceed?')
 
   }
+            }
             }
         }
 
