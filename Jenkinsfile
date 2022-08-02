@@ -5,10 +5,6 @@ pipeline {
     maven 'maven'
   }
 
-  environment {
-    AWS_SECRET_KEY='test'
-  }
-
   stages {
     stage('Build') {
         steps {
@@ -17,65 +13,74 @@ pipeline {
     }
 
     stage('Test') {
- steps {
-          echo '$AWS_SECRET_KEY'
+      steps {
+          echo "${env.BUILD_NUMBER}"
+          echo "${env.BUILD_URL}"
         }
     }
 
-    stage('Input') {
-            steps {
-              script {
-                if (env.BRANCH_NAME == 'feature/test') {
-                input('Do you want to proceed?')
-
-  }
-            }
-            }
-        }
 
     stage('Code Quality') {
- steps {
-
+      steps {
           echo 'Quality'
         }
     }
 
     stage('Deploy to Dev') {
- steps {
+      steps {
           echo 'Dev'
         }
-
-        post {
-    failure {
-        mail to: 'team@example.com',
-             subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
-             body: "Something is wrong with ${env.BUILD_URL}"
-    }
-}
     }
 
-    stage('Deploy to TEst') {
- steps {
+    stage('Deploy to Test') {
+      steps {
           echo 'Test'
         }
     }
 
-     stage('Deploy to UAT') {
- steps {
+    stage('Deploy to UAT') {
+      steps {
           echo 'UAT'
         }
     }
 
- stage('Deploy to Pre_prod') {
- steps {
-          echo 'Staging'
-        }
+    stage('Deploy to Pre_prod') {
+      steps {
+            echo 'Staging'
+          }
     }
 
+
     stage('Deploy to Prod') {
- steps {
+      steps {
           echo 'Prod'
+        }
+
+        post {
+          failure {
+            echo 'Sending Notifcaiton'
+          }
         }
     }
   }
+
+   post {
+        always {
+            echo 'One way or another, I have finished'
+        }
+        success {
+            echo 'I succeeded!'
+        }
+        unstable {
+            echo 'I am unstable :/'
+        }
+        failure {
+             mail to: 'team@example.com',
+             subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
+             body: "Something is wrong with ${env.BUILD_NUMBER}"
+        }
+        changed {
+            echo 'Things were different before...'
+        }
+    }
 }
