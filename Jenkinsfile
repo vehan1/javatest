@@ -61,8 +61,9 @@ pipeline {
     }
 
     stage('Deploy to Prod') {
-      steps {
-          echo 'Prod'
+        when { branch 'master'}
+      steps { 
+          echo 'Prod'         
         }
 
         post {
