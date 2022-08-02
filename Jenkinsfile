@@ -61,14 +61,14 @@ pipeline {
     }
 
     stage('Deploy to Prod') {
-        when { branch 'master'}
+      when { branch 'master'}
       steps { 
           echo 'Prod'         
         }
 
         post {
           failure {
-            echo 'Sending Notifcaiton'
+            echo 'Sending Notification'
           }
         }
     }
@@ -76,13 +76,13 @@ pipeline {
 
    post {
         always {
-            echo 'One way or another, I have finished'
+            echo 'I have finished'
         }
         success {
             echo 'I succeeded!'
         }
         unstable {
-            echo 'I am unstable :/'
+            echo 'I am unstable'
         }
         failure {
              mail to: 'team@example.com',
