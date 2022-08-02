@@ -90,7 +90,7 @@ pipeline {
              body: "Something is wrong with ${env.BUILD_NUMBER}"
         }
         changed {
-            echo 'Things were different before...'
+            echo 'Things were different before'
         }
     }
 }
