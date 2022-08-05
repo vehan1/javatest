@@ -22,7 +22,7 @@ pipeline {
 
     stage('Code Quality') {
       steps {
-          echo 'Code Quality'
+          echo 'Quality'
         }
     }
 
