@@ -31,7 +31,7 @@ pipeline {
             parallel {
                 stage('Test On Windows') {
                     agent {
-                        label "windows"
+                        
                     }
                     steps {
                         bat "run-tests.bat"
@@ -44,7 +44,7 @@ pipeline {
                 }
                 stage('Test On Linux') {
                     agent {
-                        label "linux"
+                        
                     }
                     steps {
                         sh "run-tests.sh"
