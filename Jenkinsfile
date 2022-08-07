@@ -52,8 +52,9 @@ pipeline {
                     post {
                         always {
                             junit "**/TEST-*.xml"
-      
-
+                        }
+                    }
+                }
     }
     stage('Deploy to Dev') {
       steps {
