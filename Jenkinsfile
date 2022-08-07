@@ -27,7 +27,7 @@ pipeline {
           echo 'Code Quality'
         }
     }
-    stage('Run parallel') {
+    stage('Run Test') {
        parallel {
                 stage('Test On Windows') {
                     agent {
