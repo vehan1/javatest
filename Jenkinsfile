@@ -27,37 +27,6 @@ pipeline {
           echo 'Code Quality'
         }
     }
-    stage('Run Tests') {
-            parallel {
-                stage('Test On java') {
-                    agent {
-                        label "java"
-                    }
-                    steps {
-                        bat "run-tests.bat"
-                    }
-                    post {
-                        always {
-                            junit "**/TEST-*.xml"
-                        }
-                    }
-                }
-                stage('Test On java') {
-                    agent {
-                        label "java"
-                    }
-                    steps {
-                        sh "run-tests.sh"
-                    }
-                    post {
-                        always {
-                            junit "**/TEST-*.xml"
-                        }
-                    }
-                }
-      
-            }
-    }
 
     stage('Deploy to Dev') {
       steps {
@@ -106,4 +75,24 @@ pipeline {
         }
     }
   }
+
+   post {
+        always {
+            echo 'I have finished'
+        }
+        success {
+            echo 'I succeeded!'
+        }
+        unstable {
+            echo 'I am unstable'
+        }
+        failure {
+             mail to: 'team@example.com',
+             subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
+             body: "Something is wrong with ${env.BUILD_NUMBER}"
+        }
+        changed {
+            echo 'Things were different before'
+        }
+    }
 }
