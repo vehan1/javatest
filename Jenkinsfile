@@ -43,32 +43,24 @@ pipeline {
             parallel {
                 stage('Test On Windows') {
                     agent 
-                        echo "windows"
+                        echo 'windows'
                     
                     steps {
-                        bat "run-tests.bat"
+                        echo 'test'
                     }
-                    post {
-                        always {
-                            junit "**/TEST-*.xml"
-                        }
-                    }
+                    
                 }
                 stage('Test On Linux') {
                     agent 
-                        echo "linux"
+                        echo 'linux'
                     
                     steps {
-                        sh "run-tests.sh"
+                        echo 'Test'
                     }
-                    post {
-                        always {
-                            junit "**/TEST-*.xml"
-                        }
-                    }
+                    
                 }
             }
-        }
+    }    
     stage('Deploy to UAT') {
       steps {
           echo 'UAT'
