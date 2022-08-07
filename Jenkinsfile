@@ -29,9 +29,9 @@ pipeline {
     }
     stage('Run Tests') {
             parallel {
-                stage('Test On Windows') {
+                stage('Test On java') {
                     agent {
-                        
+                        label "windows"
                     }
                     steps {
                         bat "run-tests.bat"
@@ -42,9 +42,9 @@ pipeline {
                         }
                     }
                 }
-                stage('Test On Linux') {
+                stage('Test On java') {
                     agent {
-                        
+                        label "linux"
                     }
                     steps {
                         sh "run-tests.sh"
@@ -55,10 +55,10 @@ pipeline {
                         }
                     }
                 }
+      
             }
     }
- 
-  
+    
     stage('Deploy to Dev') {
       steps {
           echo 'Dev'
