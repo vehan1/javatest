@@ -41,19 +41,13 @@ pipeline {
     }
     stage('Run Tests') {
             parallel {
-                stage('Test On Windows') {
-                    agent 
-                        echo 'windows'
-                    
-                    steps {
-                        echo 'test'
-                    }
-                    
+                stage('Test On Window') {
+                  steps{
+                    echo 'test'
+                  }
                 }
                 stage('Test On Linux') {
-                    agent 
-                        echo 'linux'
-                    
+
                     steps {
                         echo 'Test'
                     }
