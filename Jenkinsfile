@@ -39,7 +39,36 @@ pipeline {
           echo 'Test'
         }
     }
-
+    stage('Run Tests') {
+            parallel {
+                stage('Test On Windows') {
+                    agent 
+                        echo "windows"
+                    
+                    steps {
+                        bat "run-tests.bat"
+                    }
+                    post {
+                        always {
+                            junit "**/TEST-*.xml"
+                        }
+                    }
+                }
+                stage('Test On Linux') {
+                    agent 
+                        echo "linux"
+                    
+                    steps {
+                        sh "run-tests.sh"
+                    }
+                    post {
+                        always {
+                            junit "**/TEST-*.xml"
+                        }
+                    }
+                }
+            }
+        }
     stage('Deploy to UAT') {
       steps {
           echo 'UAT'
