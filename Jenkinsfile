@@ -27,8 +27,8 @@ pipeline {
           echo 'Code Quality'
         }
     }
-    stage('Run Test') {
-       parallel {
+    stage('Run Tests') {
+            parallel {
                 stage('Test On Windows') {
                     agent {
                         label "windows"
@@ -55,7 +55,10 @@ pipeline {
                         }
                     }
                 }
+            }
     }
+ 
+  
     stage('Deploy to Dev') {
       steps {
           echo 'Dev'
