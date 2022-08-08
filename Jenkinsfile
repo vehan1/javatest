@@ -70,7 +70,7 @@ pipeline {
     stage('Prod Approval') {
       steps {
         script {
-          if (env.BRANCH_NAME == "master") {
+          if(env.BRANCH_NAME == "master") {
             input('Proceed for Prod Deployment ?')
           }
         }
